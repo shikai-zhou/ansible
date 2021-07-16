@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+  - name: Ensure chrony (for time synchronization) is installed.
+    yum:
+      name: chrony
+      state: present
+
+  - name: Ensure chrony is running.
+    service:
+      name: chronyd
+      state: started
+      enabled: yes
+      
+  - name: Ensure apache is installed.
+    yum:
+      name: httpd
+      state: present
+
+  - name: Ensure apache is running.
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+
+  
+  
+# The same as the above play, but in super-compact form!
+#- hosts: all
+#  become: yes
+#  tasks:
+#  - yum: name=chrony state=present
+#  - service: name=chronyd state=started enabled=yes
